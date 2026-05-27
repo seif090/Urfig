@@ -16,6 +16,7 @@ import { UserService } from '../../core/services/user.service';
         <div class="tabs">
           <button [class.active]="activeTab() === 'orders'" (click)="activeTab.set('orders')">Order History</button>
           <button [class.active]="activeTab() === 'designs'" (click)="activeTab.set('designs')">Saved Designs</button>
+          <button [class.active]="activeTab() === 'wishlist'" (click)="activeTab.set('wishlist')">Wishlist</button>
         </div>
 
         @if (activeTab() === 'orders') {
@@ -55,7 +56,7 @@ import { UserService } from '../../core/services/user.service';
               }
             </div>
           }
-        } @else {
+        } @else if (activeTab() === 'designs') {
           <h2>My Saved Designs</h2>
           <div class="designs-grid">
             @for (design of savedDesigns(); track design._id) {
@@ -72,6 +73,22 @@ import { UserService } from '../../core/services/user.service';
               </div>
             } @empty {
               <p>No saved designs yet.</p>
+            }
+          </div>
+        } @else {
+          <h2>My Wishlist</h2>
+          <div class="wishlist-grid">
+            @for (prod of wishlist(); track prod._id) {
+              <div class="wish-item">
+                <img [src]="prod.imageUrl" [alt]="prod.name">
+                <div class="wish-details">
+                  <strong>{{ prod.name }}</strong>
+                  <span>\${{ prod.price }}</span>
+                </div>
+                <button (click)="removeFromWishlist(prod._id)" class="remove-btn">✕</button>
+              </div>
+            } @empty {
+              <p>Your wishlist is empty.</p>
             }
           </div>
         }
@@ -113,6 +130,18 @@ import { UserService } from '../../core/services/user.service';
     .l-layer { position: absolute; width: 60%; left: 20%; bottom: 10%; }
     .design-info { display: flex; flex-direction: column; gap: 0.5rem; }
     .load-btn { background: #ffcf00; border: none; padding: 0.5rem; border-radius: 4px; font-weight: bold; cursor: pointer; }
+
+    .wishlist-grid { display: flex; flex-direction: column; gap: 1rem; }
+    .wish-item { 
+      display: flex; align-items: center; gap: 1rem; padding: 1rem; 
+      background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .wish-item img { width: 60px; height: 60px; object-fit: contain; }
+    .wish-details { flex: 1; display: flex; flex-direction: column; }
+    .remove-btn { 
+      background: #eee; border: none; width: 30px; height: 30px; 
+      border-radius: 50%; cursor: pointer; color: #888; 
+    }
   `]
 })
 export class OrderHistoryComponent implements OnInit {
@@ -120,9 +149,10 @@ export class OrderHistoryComponent implements OnInit {
   authService = inject(AuthService);
   userService = inject(UserService);
   
-  activeTab = signal<'orders' | 'designs'>('orders');
+  activeTab = signal<'orders' | 'designs' | 'wishlist'>('orders');
   orders = signal<any[]>([]);
   savedDesigns = signal<any[]>([]);
+  wishlist = signal<any[]>([]);
   loading = signal(false);
 
   async ngOnInit() {
@@ -130,7 +160,8 @@ export class OrderHistoryComponent implements OnInit {
     if (user) {
       await Promise.all([
         this.loadOrders(user.email),
-        this.loadDesigns()
+        this.loadDesigns(),
+        this.loadWishlist()
       ]);
     }
   }
@@ -148,6 +179,25 @@ export class OrderHistoryComponent implements OnInit {
     try {
       const data = await this.userService.getSavedDesigns();
       this.savedDesigns.set(data);
+    } catch (err) { console.error(err); }
+  }
+
+  async loadWishlist() {
+    try {
+      const data = await this.userService.getWishlist();
+      this.wishlist.set(data);
+    } catch (err) { console.error(err); }
+  }
+
+  async removeFromWishlist(productId: string) {
+    try {
+      await this.userService.toggleWishlist(productId);
+      await this.loadWishlist();
+    } catch (e) {
+      alert('Failed to remove from wishlist');
+    }
+  }
+}
     } catch (err) { console.error(err); }
   }
 }

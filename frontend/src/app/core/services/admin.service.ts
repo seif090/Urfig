@@ -33,5 +33,9 @@ export class AdminService {
   getStats(): Observable<any> {
     return this.http.get(`${this.apiUrl}/stats`);
   }
+
+  createPromo(promo: any): Observable<any> {
+    return this.http.post(`http://localhost:5000/api/promo/create`, promo);
+  }
 }
 迫

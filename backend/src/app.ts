@@ -10,6 +10,7 @@ import authRoutes from './routes/authRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import reviewRoutes from './routes/reviewRoutes.js';
+import promoRoutes from './routes/promoRoutes.js';
 
 dotenv.config();
 
@@ -34,5 +35,6 @@ app.use('/api/products', productRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/reviews', reviewRoutes);
+app.use('/api/promo', promoRoutes);
 
 export default app;

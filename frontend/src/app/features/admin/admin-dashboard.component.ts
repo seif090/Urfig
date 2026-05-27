@@ -17,10 +17,18 @@ export class AdminDashboardComponent implements OnInit {
   private orderService = inject(OrderService);
   private adminService = inject(AdminService);
 
-  activeMode = signal<'assembly' | 'products' | 'parts'>('assembly');
+  activeMode = signal<'assembly' | 'products' | 'parts' | 'promo'>('assembly');
   orders = signal<any[]>([]);
   lowStockItems = signal<any[]>([]);
   loading = signal(true);
+
+  // Promo state
+  newPromo = {
+    code: '',
+    discountType: 'percentage',
+    discountValue: 10,
+    expiryDate: ''
+  };
 
   async ngOnInit() {
     await Promise.all([
@@ -62,6 +70,16 @@ export class AdminDashboardComponent implements OnInit {
    */
   hasCustomItems(order: any): boolean {
     return order.items.some((item: any) => !!item.customKeychain);
+  }
+
+  async createPromoCode() {
+    this.adminService.createPromo(this.newPromo).subscribe({
+      next: () => {
+        alert('Promo code created successfully!');
+        this.newPromo = { code: '', discountType: 'percentage', discountValue: 10, expiryDate: '' };
+      },
+      error: () => alert('Failed to create promo code')
+    });
   }
 }
 迫

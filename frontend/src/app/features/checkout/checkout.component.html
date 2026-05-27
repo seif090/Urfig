@@ -25,8 +25,20 @@
       </div>
 
       <div class="total-bar">
-        <span>Total Amount:</span>
-        <strong>${{ totalAmount() }}</strong>
+        <span>Subtotal:</span>
+        <span>${{ totalAmount() }}</span>
+      </div>
+
+      @if (discountAmount() > 0) {
+        <div class="total-bar discount">
+          <span>Discount:</span>
+          <span>-${{ discountAmount().toFixed(2) }}</span>
+        </div>
+      }
+
+      <div class="total-bar grand">
+        <span>Grand Total:</span>
+        <strong>${{ finalTotal().toFixed(2) }}</strong>
       </div>
     </div>
 
@@ -55,6 +67,19 @@
           <textarea id="address" formControlName="shippingAddress" rows="3" placeholder="123 Lego St, Brick City, BC 12345"></textarea>
           @if (checkoutForm.get('shippingAddress')?.touched && checkoutForm.get('shippingAddress')?.invalid) {
             <small class="error">Full address is required (min 10 chars)</small>
+          }
+        </div>
+
+        <div class="promo-section">
+          <div class="form-group">
+            <label>Promo Code</label>
+            <div class="promo-input">
+              <input type="text" formControlName="promoCode" placeholder="LEGOLOVE">
+              <button type="button" (click)="applyPromo()" [disabled]="appliedPromo()" class="promo-btn">Apply</button>
+            </div>
+          </div>
+          @if (appliedPromo()) {
+            <small class="success-msg">Promo "{{ appliedPromo().code }}" applied!</small>
           }
         </div>
 

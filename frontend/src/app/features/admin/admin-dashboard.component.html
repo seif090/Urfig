@@ -10,6 +10,7 @@
         }
       </button>
       <button [class.active]="activeMode() === 'parts'" (click)="activeMode.set('parts')">LEGO Parts</button>
+      <button [class.active]="activeMode() === 'promo'" (click)="activeMode.set('promo')">Promo Codes</button>
     </div>
   </div>
 
@@ -28,6 +29,24 @@
 
   @if (activeMode() === 'products') {
     <app-product-manager></app-product-manager>
+  }
+
+  @if (activeMode() === 'promo') {
+    <div class="promo-manager">
+      <h2>Create New Promotion</h2>
+      <div class="promo-form">
+        <div class="form-row">
+          <input [(ngModel)]="newPromo.code" placeholder="CODE (e.g. SUMMER26)">
+          <select [(ngModel)]="newPromo.discountType">
+            <option value="percentage">Percentage (%)</option>
+            <option value="fixed">Fixed Amount ($)</option>
+          </select>
+          <input type="number" [(ngModel)]="newPromo.discountValue" placeholder="Value">
+          <input type="date" [(ngModel)]="newPromo.expiryDate">
+          <button (click)="createPromoCode()">Create Coupon</button>
+        </div>
+      </div>
+    </div>
   }
 
   @if (activeMode() === 'assembly') {

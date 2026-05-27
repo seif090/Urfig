@@ -22,6 +22,8 @@ export interface IOrder extends Document {
   customerEmail: string;
   shippingAddress: string;
   items: IOrderItem[];
+  discountAmount?: number;
+  promoCode?: string;
   totalAmount: number;
   status: 'pending' | 'paid' | 'shipped' | 'delivered' | 'cancelled';
   createdAt: Date;
@@ -47,6 +49,8 @@ const OrderSchema = new Schema<IOrder>({
   customerEmail: { type: String, required: true },
   shippingAddress: { type: String, required: true },
   items: [OrderItemSchema],
+  discountAmount: { type: Number, default: 0 },
+  promoCode: { type: String },
   totalAmount: { type: Number, required: true },
   status: { 
     type: String, 

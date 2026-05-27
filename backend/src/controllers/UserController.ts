@@ -44,5 +44,39 @@ export class UserController {
       res.status(500).json({ message: 'Error fetching designs', error: error.message });
     }
   }
+
+  static async toggleWishlist(req: AuthRequest, res: Response) {
+    try {
+      const { productId } = req.body;
+      const userId = req.user?.id;
+      if (!userId) return res.status(401).json({ message: 'Unauthorized' });
+
+      const user = await User.findById(userId);
+      if (!user) return res.status(404).json({ message: 'User not found' });
+
+      const index = user.wishlist.indexOf(productId);
+      if (index > -1) {
+        user.wishlist.splice(index, 1);
+      } else {
+        user.wishlist.push(productId);
+      }
+
+      await user.save();
+      res.status(200).json({ wishlist: user.wishlist });
+    } catch (error: any) {
+      res.status(500).json({ message: 'Error updating wishlist', error: error.message });
+    }
+  }
+
+  static async getWishlist(req: AuthRequest, res: Response) {
+    try {
+      const userId = req.user?.id;
+      if (!userId) return res.status(401).json({ message: 'Unauthorized' });
+
+      const user = await User.findById(userId).populate('wishlist');
+      res.status(200).json(user?.wishlist || []);
+    } catch (error: any) {
+      res.status(500).json({ message: 'Error fetching wishlist', error: error.message });
+    }
+  }
 }
-迫

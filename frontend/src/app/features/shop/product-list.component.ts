@@ -4,6 +4,7 @@ import { ShopService } from '../../core/services/shop.service';
 import { CartService } from '../../core/services/cart.service';
 import { ReviewService } from '../../core/services/review.service';
 import { AuthService } from '../../core/services/auth.service';
+import { UserService } from '../../core/services/user.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -17,10 +18,12 @@ export class ProductListComponent implements OnInit {
   private shopService = inject(ShopService);
   private cartService = inject(CartService);
   private reviewService = inject(ReviewService);
+  private userService = inject(UserService);
   authService = inject(AuthService);
 
   products = signal<any[]>([]);
   categories = signal<string[]>([]);
+  wishlistIds = signal<string[]>([]);
   
   searchQuery = signal('');
   selectedCategory = signal('All');
@@ -35,8 +38,35 @@ export class ProductListComponent implements OnInit {
   async ngOnInit() {
     await Promise.all([
       this.loadCategories(),
-      this.loadProducts()
+      this.loadProducts(),
+      this.loadWishlist()
     ]);
+  }
+
+  async loadWishlist() {
+    if (this.authService.currentUser()) {
+      try {
+        const items = await this.userService.getWishlist();
+        this.wishlistIds.set(items.map((i: any) => i._id));
+      } catch (e) {}
+    }
+  }
+
+  async toggleWishlist(productId: string) {
+    if (!this.authService.currentUser()) {
+      alert('Please log in to save favorites');
+      return;
+    }
+    try {
+      const res = await this.userService.toggleWishlist(productId);
+      this.wishlistIds.set(res.wishlist);
+    } catch (e) {
+      alert('Failed to update wishlist');
+    }
+  }
+
+  isInWishlist(productId: string) {
+    return this.wishlistIds().includes(productId);
   }
 
   async toggleReviews(productId: string) {

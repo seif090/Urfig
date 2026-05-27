@@ -16,5 +16,12 @@ export class UserService {
   async getSavedDesigns() {
     return firstValueFrom(this.http.get<any[]>(`${this.API_URL}/saved-designs`));
   }
+
+  async toggleWishlist(productId: string) {
+    return firstValueFrom(this.http.post<any>(`${this.API_URL}/wishlist`, { productId }));
+  }
+
+  async getWishlist() {
+    return firstValueFrom(this.http.get<any[]>(`${this.API_URL}/wishlist`));
+  }
 }
-迫

@@ -28,6 +28,9 @@
           <div class="img-wrapper">
             <img [src]="product.imageUrl" [alt]="product.name">
             <span class="category">{{ product.category }}</span>
+            <button class="wishlist-btn" (click)="toggleWishlist(product._id)" [class.active]="isInWishlist(product._id)">
+              {{ isInWishlist(product._id) ? '❤️' : '🤍' }}
+            </button>
           </div>
           <div class="info">
             <h3>{{ product.name }}</h3>

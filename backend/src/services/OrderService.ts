@@ -1,6 +1,7 @@
 import { Order, IOrder, IOrderItem } from '../models/Order.js';
 import { CustomizerService } from './CustomizerService.js';
 import { Product } from '../models/Product.js';
+import { PromoCode } from '../models/PromoCode.js';
 
 export class OrderService {
   /**
@@ -12,9 +13,10 @@ export class OrderService {
     customerEmail: string;
     shippingAddress: string;
     items: any[]; // Raw items from cart
+    promoCode?: string;
   }): Promise<IOrder> {
     const processedItems: IOrderItem[] = [];
-    let grandTotal = 0;
+    let subtotalSum = 0;
 
     for (const item of orderData.items) {
       let subtotal = 0;
@@ -56,17 +58,37 @@ export class OrderService {
         });
       }
 
-      grandTotal += subtotal;
+      subtotalSum += subtotal;
     }
 
-    // 3. Create and Save the Order
+    // 3. Apply Promo Code
+    let discountAmount = 0;
+    if (orderData.promoCode) {
+      const promo = await PromoCode.findOne({ code: orderData.promoCode.toUpperCase(), isActive: true });
+      if (promo && promo.expiryDate > new Date() && (!promo.usageLimit || promo.usageCount < promo.usageLimit)) {
+        if (promo.discountType === 'percentage') {
+          discountAmount = subtotalSum * (promo.discountValue / 100);
+        } else {
+          discountAmount = promo.discountValue;
+        }
+        // Increment usage
+        promo.usageCount += 1;
+        await promo.save();
+      }
+    }
+
+    const finalTotal = Math.max(0, subtotalSum - discountAmount);
+
+    // 4. Create and Save the Order
     const newOrder = new Order({
       user: orderData.userId,
       customerName: orderData.customerName,
       customerEmail: orderData.customerEmail,
       shippingAddress: orderData.shippingAddress,
       items: processedItems,
-      totalAmount: parseFloat(grandTotal.toFixed(2)),
+      discountAmount: parseFloat(discountAmount.toFixed(2)),
+      promoCode: orderData.promoCode,
+      totalAmount: parseFloat(finalTotal.toFixed(2)),
       status: 'pending'
     });
 

@@ -5,7 +5,7 @@ import { AuthRequest } from '../middleware/authMiddleware.js';
 export class OrderController {
   static async checkout(req: AuthRequest, res: Response) {
     try {
-      const { customerName, customerEmail, shippingAddress, items } = req.body;
+      const { customerName, customerEmail, shippingAddress, items, promoCode } = req.body;
       const userId = req.user?.id;
 
       if (!items || !Array.isArray(items) || items.length === 0) {
@@ -17,7 +17,8 @@ export class OrderController {
         customerName,
         customerEmail,
         shippingAddress,
-        items
+        items,
+        promoCode
       });
 
       res.status(201).json({

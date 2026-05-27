@@ -23,7 +23,8 @@ const UserSchema = new Schema<IUser>({
     legs: { type: Schema.Types.ObjectId, ref: 'LegoPart' },
     accessory: { type: Schema.Types.ObjectId, ref: 'LegoPart' },
     createdAt: { type: Date, default: Date.now }
-  }]
+  }],
+  wishlist: [{ type: Schema.Types.ObjectId, ref: 'Product' }]
 }, { timestamps: true });
 
 // Hash password before saving
