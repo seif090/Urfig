@@ -1,0 +1,122 @@
+.shop-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.search-box input {
+  padding: 0.8rem 1.5rem;
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  font-size: 1rem;
+}
+
+.category-chips {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.category-chips button {
+  padding: 0.5rem 1.2rem;
+  border: 1px solid #eee;
+  background: white;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.category-chips button.active {
+  background: #ffcf00;
+  border-color: #ffcf00;
+  font-weight: bold;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.product-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.img-wrapper {
+  position: relative;
+  height: 250px;
+  background: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-wrapper img {
+  max-height: 80%;
+  max-width: 80%;
+  object-fit: contain;
+}
+
+.category {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255,255,255,0.9);
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.info {
+  padding: 1.5rem;
+}
+
+.info h3 { margin: 0 0 0.5rem 0; font-size: 1.2rem; }
+.info p { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; height: 3rem; overflow: hidden; }
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.bottom button {
+  background: #333;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.status {
+  text-align: center;
+  padding: 5rem;
+  color: #888;
+}
+迫

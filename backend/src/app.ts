@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import customizerRoutes from './routes/customizerRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
+import productRoutes from './routes/productRoutes.js';
 
 dotenv.config();
 
@@ -22,7 +23,6 @@ app.get('/health', (req: Request, res: Response) => {
 // Routes
 app.use('/api/customizer', customizerRoutes);
 app.use('/api/orders', orderRoutes);
-
-// TODO: Register actual routes (products) here
+app.use('/api/products', productRoutes);
 
 export default app;

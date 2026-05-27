@@ -1,0 +1,47 @@
+<div class="shop-container">
+  <div class="filters">
+    <div class="search-box">
+      <input 
+        type="text" 
+        placeholder="Search keychains..." 
+        [(ngModel)]="searchQuery" 
+        (ngModelChange)="onFilterChange()">
+    </div>
+
+    <div class="category-chips">
+      @for (cat of categories(); track cat) {
+        <button 
+          [class.active]="selectedCategory() === cat" 
+          (click)="selectedCategory.set(cat); onFilterChange()">
+          {{ cat }}
+        </button>
+      }
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="status">Searching the galaxy...</div>
+  } @else {
+    <div class="product-grid">
+      @for (product of products(); track product._id) {
+        <div class="product-card">
+          <div class="img-wrapper">
+            <img [src]="product.imageUrl" [alt]="product.name">
+            <span class="category">{{ product.category }}</span>
+          </div>
+          <div class="info">
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.description }}</p>
+            <div class="bottom">
+              <span class="price">${{ product.price }}</span>
+              <button (click)="addToCart(product)">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      } @empty {
+        <div class="status">No ready-made keychains found matching your search.</div>
+      }
+    </div>
+  }
+</div>
+迫

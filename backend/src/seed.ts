@@ -28,18 +28,26 @@ const seedParts = [
   { name: 'Coffee Cup', type: LegoPartType.ACCESSORY, price: 0.75, imageUrl: 'assets/parts/acc/coffee.png', stock: 100 }
 ];
 
+const seedProducts = [
+  { name: 'Spider-Man Keychain', description: 'Hero of New York', category: 'Marvel', price: 9.99, imageUrl: 'assets/products/spiderman.png', stock: 10, isReadyMade: true },
+  { name: 'Darth Vader Keychain', description: 'Dark Lord of the Sith', category: 'Star Wars', price: 12.50, imageUrl: 'assets/products/vader.png', stock: 5, isReadyMade: true },
+  { name: 'Classic Astronaut', description: 'Retro Space explorer', category: 'Space', price: 7.99, imageUrl: 'assets/products/astro.png', stock: 20, isReadyMade: true }
+];
+
 const seedDB = async () => {
   try {
     await mongoose.connect(MONGO_URI);
     console.log('Connected to MongoDB for seeding...');
 
-    // Clear existing parts
+    // Clear existing
     await LegoPart.deleteMany({});
-    console.log('Cleared existing LegoParts');
+    await Product.deleteMany({});
+    console.log('Cleared existing data');
 
-    // Insert new parts
+    // Insert
     await LegoPart.insertMany(seedParts);
-    console.log(`Successfully seeded ${seedParts.length} LegoParts!`);
+    await Product.insertMany(seedProducts);
+    console.log('Successfully seeded database!');
 
     process.exit(0);
   } catch (error) {
