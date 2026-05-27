@@ -1,0 +1,71 @@
+<div class="checkout-container">
+  <div class="checkout-layout">
+    <!-- Left: Order Summary -->
+    <div class="order-summary">
+      <h2>Order Summary</h2>
+      <div class="items-list">
+        @for (item of cartItems(); track item.id) {
+          <div class="summary-item">
+            <img [src]="item.imageUrl" [alt]="item.name">
+            <div class="item-details">
+              <span class="name">{{ item.name }}</span>
+              @if (item.type === 'custom') {
+                <small class="meta">
+                  Head, Torso, Legs
+                  @if (item.customConfig?.customText) {
+                     | Engraving: "{{ item.customConfig?.customText }}"
+                  }
+                </small>
+              }
+              <span class="qty">Qty: {{ item.quantity }}</span>
+            </div>
+            <span class="price">${{ (item.price * item.quantity).toFixed(2) }}</span>
+          </div>
+        }
+      </div>
+
+      <div class="total-bar">
+        <span>Total Amount:</span>
+        <strong>${{ totalAmount() }}</strong>
+      </div>
+    </div>
+
+    <!-- Right: Shipping Info Form -->
+    <div class="shipping-form">
+      <h2>Shipping Information</h2>
+      <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input id="name" type="text" formControlName="customerName" placeholder="John Doe">
+          @if (checkoutForm.get('customerName')?.touched && checkoutForm.get('customerName')?.invalid) {
+            <small class="error">Name is required (min 3 chars)</small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input id="email" type="email" formControlName="customerEmail" placeholder="john@example.com">
+          @if (checkoutForm.get('customerEmail')?.touched && checkoutForm.get('customerEmail')?.invalid) {
+            <small class="error">Valid email is required</small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="address">Shipping Address</label>
+          <textarea id="address" formControlName="shippingAddress" rows="3" placeholder="123 Lego St, Brick City, BC 12345"></textarea>
+          @if (checkoutForm.get('shippingAddress')?.touched && checkoutForm.get('shippingAddress')?.invalid) {
+            <small class="error">Full address is required (min 10 chars)</small>
+          }
+        </div>
+
+        <button 
+          type="submit" 
+          class="submit-btn" 
+          [disabled]="checkoutForm.invalid || isSubmitting || cartItems().length === 0">
+          {{ isSubmitting ? 'Processing...' : 'Place Order' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+迫
