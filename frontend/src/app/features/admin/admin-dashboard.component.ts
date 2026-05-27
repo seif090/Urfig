@@ -3,17 +3,19 @@ import { CommonModule } from '@angular/common';
 import { OrderService } from '../../core/services/order.service';
 import { FormsModule } from '@angular/forms';
 import { PartUploadComponent } from './part-upload.component';
+import { ProductManagerComponent } from './product-manager.component';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, PartUploadComponent],
+  imports: [CommonModule, FormsModule, PartUploadComponent, ProductManagerComponent],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
 })
 export class AdminDashboardComponent implements OnInit {
   private orderService = inject(OrderService);
 
+  activeMode = signal<'assembly' | 'products' | 'parts'>('assembly');
   orders = signal<any[]>([]);
   loading = signal(true);
 

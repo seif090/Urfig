@@ -13,6 +13,19 @@ export class AdminService {
     return this.http.post(`${this.apiUrl}/lego-parts`, formData);
   }
 
+  // Ready-made Product Management
+  createProduct(formData: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/products`, formData);
+  }
+
+  updateProduct(id: string, formData: FormData): Observable<any> {
+    return this.http.put(`${this.apiUrl}/products/${id}`, formData);
+  }
+
+  deleteProduct(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/products/${id}`);
+  }
+
   getStats(): Observable<any> {
     return this.http.get(`${this.apiUrl}/stats`);
   }

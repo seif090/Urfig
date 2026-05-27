@@ -1,17 +1,28 @@
 <div class="admin-container">
   <div class="admin-header">
-    <h1>Assembly Control Panel</h1>
-    <p>Manage pending orders and view custom LEGO assembly instructions.</p>
+    <h1>UrFig Administration</h1>
+    <div class="admin-nav">
+      <button [class.active]="activeMode() === 'assembly'" (click)="activeMode.set('assembly')">Orders & Assembly</button>
+      <button [class.active]="activeMode() === 'products'" (click)="activeMode.set('products')">Product Manager</button>
+      <button [class.active]="activeMode() === 'parts'" (click)="activeMode.set('parts')">LEGO Parts</button>
+    </div>
   </div>
 
-  <div class="admin-tools">
-    <app-part-upload></app-part-upload>
-  </div>
+  @if (activeMode() === 'parts') {
+    <div class="admin-tools">
+      <app-part-upload></app-part-upload>
+    </div>
+  }
 
-  @if (loading()) {
-    <div class="status-msg">Fetching orders...</div>
-  } @else {
-    <div class="orders-list">
+  @if (activeMode() === 'products') {
+    <app-product-manager></app-product-manager>
+  }
+
+  @if (activeMode() === 'assembly') {
+    @if (loading()) {
+      <div class="status-msg">Fetching orders...</div>
+    } @else {
+      <div class="orders-list">
       @for (order of orders(); track order._id) {
         <div class="order-card" [class]="order.status">
           <div class="order-main-info">

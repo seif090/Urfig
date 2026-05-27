@@ -8,5 +8,10 @@ const router = Router();
 router.post('/lego-parts', uploadLegoPart.single('image'), AdminController.addLegoPart);
 router.get('/stats', AdminController.getPartStats);
 
+// Product Management
+router.post('/products', uploadLegoPart.single('image'), AdminController.createProduct);
+router.put('/products/:id', uploadLegoPart.single('image'), AdminController.updateProduct);
+router.delete('/products/:id', AdminController.deleteProduct);
+
 export default router;
 迫
