@@ -1,0 +1,78 @@
+<div class="builder-container">
+  <!-- Left Side: Visual Preview -->
+  <div class="preview-panel">
+    <h3>Your Custom Creation</h3>
+    <div class="lego-preview">
+      <!-- Stacking order: Legs (bottom) -> Torso -> Head -> Accessory (top) -->
+      @if (currentConfig().legs) {
+        <img [src]="currentConfig().legs?.imageUrl" class="layer legs" alt="Legs">
+      }
+      @if (currentConfig().torso) {
+        <img [src]="currentConfig().torso?.imageUrl" class="layer torso" alt="Torso">
+      }
+      @if (currentConfig().head) {
+        <img [src]="currentConfig().head?.imageUrl" class="layer head" alt="Head">
+      }
+      @if (currentConfig().accessory) {
+        <img [src]="currentConfig().accessory?.imageUrl" class="layer accessory" alt="Accessory">
+      }
+
+      <!-- Placeholder if nothing selected -->
+      @if (!currentConfig().head && !currentConfig().torso && !currentConfig().legs) {
+        <div class="placeholder">Pick your parts to start!</div>
+      }
+    </div>
+
+    <div class="price-summary">
+      <p>Total Price: <strong>${{ totalPrice() }}</strong></p>
+      <button 
+        [disabled]="!isComplete()" 
+        (click)="addToCart()"
+        class="add-to-cart-btn">
+        Add to Cart
+      </button>
+    </div>
+  </div>
+
+  <!-- Right Side: Selection Tabs & Parts Grid -->
+  <div class="selection-panel">
+    <div class="tabs">
+      <button [class.active]="activeTab() === 'head'" (click)="selectTab('head')">Heads</button>
+      <button [class.active]="activeTab() === 'torso'" (click)="selectTab('torso')">Torsos</button>
+      <button [class.active]="activeTab() === 'legs'" (click)="selectTab('legs')">Legs</button>
+      <button [class.active]="activeTab() === 'accessory'" (click)="selectTab('accessory')">Accessories</button>
+    </div>
+
+    <div class="parts-grid">
+      @if (parts()) {
+        @for (part of parts()![activeTab() === 'head' ? 'heads' : 
+                               activeTab() === 'torso' ? 'torsos' : 
+                               activeTab() === 'legs' ? 'legs' : 'accessories']; track part.id) {
+          <div 
+            class="part-card" 
+            [class.selected]="currentConfig()[activeTab()]?.id === part.id"
+            (click)="onPartSelect(part)">
+            <img [src]="part.imageUrl" [alt]="part.name">
+            <div class="part-info">
+              <span>{{ part.name }}</span>
+              <small>${{ part.price }}</small>
+            </div>
+          </div>
+        }
+      } @else {
+        <p>Loading parts...</p>
+      }
+    </div>
+
+    <!-- Custom Text Engraving -->
+    <div class="extra-options">
+      <h4>Engraving (Optional)</h4>
+      <input 
+        type="text" 
+        placeholder="Enter text to engrave..." 
+        [value]="currentConfig().customText"
+        (input)="onTextChange($event)">
+    </div>
+  </div>
+</div>
+迫
