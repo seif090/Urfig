@@ -2,6 +2,8 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShopService } from '../../core/services/shop.service';
 import { CartService } from '../../core/services/cart.service';
+import { ReviewService } from '../../core/services/review.service';
+import { AuthService } from '../../core/services/auth.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -14,6 +16,8 @@ import { FormsModule } from '@angular/forms';
 export class ProductListComponent implements OnInit {
   private shopService = inject(ShopService);
   private cartService = inject(CartService);
+  private reviewService = inject(ReviewService);
+  authService = inject(AuthService);
 
   products = signal<any[]>([]);
   categories = signal<string[]>([]);
@@ -22,11 +26,39 @@ export class ProductListComponent implements OnInit {
   selectedCategory = signal('All');
   loading = signal(true);
 
+  // Review state
+  expandedReviews = signal<string | null>(null);
+  productReviews = signal<any[]>([]);
+  newRating = signal(5);
+  newComment = signal('');
+
   async ngOnInit() {
     await Promise.all([
       this.loadCategories(),
       this.loadProducts()
     ]);
+  }
+
+  async toggleReviews(productId: string) {
+    if (this.expandedReviews() === productId) {
+      this.expandedReviews.set(null);
+    } else {
+      this.expandedReviews.set(productId);
+      this.productReviews.set(await this.reviewService.getReviews(productId));
+      this.newComment.set('');
+      this.newRating.set(5);
+    }
+  }
+
+  async submitReview(productId: string) {
+    if (!this.newComment()) return;
+    try {
+      await this.reviewService.addReview(productId, this.newRating(), this.newComment());
+      this.productReviews.set(await this.reviewService.getReviews(productId));
+      this.newComment.set('');
+    } catch (err) {
+      alert('Failed to add review');
+    }
   }
 
   async loadCategories() {

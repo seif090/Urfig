@@ -1,6 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderService } from '../../core/services/order.service';
+import { AdminService } from '../../core/services/admin.service';
 import { FormsModule } from '@angular/forms';
 import { PartUploadComponent } from './part-upload.component';
 import { ProductManagerComponent } from './product-manager.component';
@@ -14,13 +15,24 @@ import { ProductManagerComponent } from './product-manager.component';
 })
 export class AdminDashboardComponent implements OnInit {
   private orderService = inject(OrderService);
+  private adminService = inject(AdminService);
 
   activeMode = signal<'assembly' | 'products' | 'parts'>('assembly');
   orders = signal<any[]>([]);
+  lowStockItems = signal<any[]>([]);
   loading = signal(true);
 
   async ngOnInit() {
-    await this.loadOrders();
+    await Promise.all([
+      this.loadOrders(),
+      this.loadLowStock()
+    ]);
+  }
+
+  async loadLowStock() {
+    this.adminService.getLowStockProducts().subscribe(items => {
+      this.lowStockItems.set(items);
+    });
   }
 
   async loadOrders() {

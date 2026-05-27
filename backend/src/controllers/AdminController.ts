@@ -97,6 +97,19 @@ export class AdminController {
     }
   }
 
+  static async getLowStockProducts(req: Request, res: Response) {
+    try {
+      const threshold = 5; // Alert if stock is below 5
+      const products = await Product.find({ 
+        isReadyMade: true, 
+        stock: { $lt: threshold } 
+      });
+      res.json(products);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+
   static async getPartStats(req: Request, res: Response) {
     try {
       const stats = await LegoPart.aggregate([

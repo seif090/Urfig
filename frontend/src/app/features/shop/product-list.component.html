@@ -34,9 +34,49 @@
             <p>{{ product.description }}</p>
             <div class="bottom">
               <span class="price">${{ product.price }}</span>
-              <button (click)="addToCart(product)">Add to Cart</button>
+              <div class="card-actions">
+                <button (click)="addToCart(product)" class="cart-btn">Add to Cart</button>
+                <button (click)="toggleReviews(product._id)" class="review-toggle">
+                  {{ expandedReviews() === product._id ? 'Hide Reviews' : 'Reviews' }}
+                </button>
+              </div>
             </div>
           </div>
+
+          @if (expandedReviews() === product._id) {
+            <div class="reviews-section">
+              <h4>Customer Reviews</h4>
+              <div class="reviews-list">
+                @for (rev of productReviews(); track rev._id) {
+                  <div class="review-item">
+                    <div class="rev-header">
+                      <strong>{{ rev.userName }}</strong>
+                      <span class="stars">{{ '⭐'.repeat(rev.rating) }}</span>
+                    </div>
+                    <p>{{ rev.comment }}</p>
+                  </div>
+                } @empty {
+                  <p class="no-reviews">No reviews yet. Be the first!</p>
+                }
+              </div>
+
+              @if (authService.currentUser()) {
+                <div class="add-review">
+                  <select [(ngModel)]="newRating">
+                    <option [value]="5">5 Stars</option>
+                    <option [value]="4">4 Stars</option>
+                    <option [value]="3">3 Stars</option>
+                    <option [value]="2">2 Stars</option>
+                    <option [value]="1">1 Star</option>
+                  </select>
+                  <textarea [(ngModel)]="newComment" placeholder="Write a review..."></textarea>
+                  <button (click)="submitReview(product._id)">Submit</button>
+                </div>
+              } @else {
+                <p class="login-hint">Log in to leave a review.</p>
+              }
+            </div>
+          }
         </div>
       } @empty {
         <div class="status">No ready-made keychains found matching your search.</div>

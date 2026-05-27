@@ -97,6 +97,92 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: auto;
+}
+
+.price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.cart-btn {
+  background: #ffcf00;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.review-toggle {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.reviews-section {
+  padding: 1rem;
+  background: #fdfdfd;
+  border-top: 1px solid #eee;
+  font-size: 0.9rem;
+}
+
+.reviews-list {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.review-item {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 0.5rem 0;
+}
+
+.rev-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stars { color: #f1c40f; }
+
+.add-review {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.add-review textarea {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  height: 60px;
+  resize: none;
+}
+
+.add-review button {
+  background: #333;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-hint { font-size: 0.8rem; color: #888; text-align: center; }
+
+.status {
+  text-align: center;
+  padding: 3rem;
+  color: #888;
 }
 
 .price {

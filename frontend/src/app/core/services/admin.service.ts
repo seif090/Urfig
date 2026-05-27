@@ -26,6 +26,10 @@ export class AdminService {
     return this.http.delete(`${this.apiUrl}/products/${id}`);
   }
 
+  getLowStockProducts(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/products/low-stock`);
+  }
+
   getStats(): Observable<any> {
     return this.http.get(`${this.apiUrl}/stats`);
   }

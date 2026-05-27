@@ -78,12 +78,16 @@ import { ShopService } from '../../core/services/shop.service';
           </thead>
           <tbody>
             @for (prod of products(); track prod._id) {
-              <tr>
+              <tr [class.warning-row]="prod.stock < 5">
                 <td><img [src]="prod.imageUrl" class="thumb"></td>
                 <td>{{ prod.name }}</td>
                 <td><span class="badge">{{ prod.category }}</span></td>
                 <td>\${{ prod.price }}</td>
-                <td>{{ prod.stock }}</td>
+                <td>
+                  <span class="stock-pill" [class.low-stock]="prod.stock < 5">
+                    {{ prod.stock }}
+                  </span>
+                </td>
                 <td class="actions">
                   <button (click)="editProduct(prod)" class="edit-btn">Edit</button>
                   <button (click)="deleteProduct(prod._id)" class="delete-btn">Delete</button>
@@ -114,6 +118,24 @@ import { ShopService } from '../../core/services/shop.service';
     .thumb { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
     .actions { display: flex; gap: 0.5rem; }
     .edit-btn { background: #007bff; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 4px; cursor: pointer; }
+    .stock-pill {
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-weight: bold;
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+    .stock-pill.low-stock {
+      background: #ffebee;
+      color: #c62828;
+      animation: pulse 2s infinite;
+    }
+    .warning-row { background-color: #fff9c4 !important; }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
     .delete-btn { background: #dc3545; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 4px; cursor: pointer; }
     .badge { background: #e9ecef; padding: 0.2rem 0.5rem; border-radius: 10px; font-size: 0.8rem; }
     .hint { font-size: 0.75rem; color: #666; margin-top: 2px; }

@@ -3,10 +3,22 @@
     <h1>UrFig Administration</h1>
     <div class="admin-nav">
       <button [class.active]="activeMode() === 'assembly'" (click)="activeMode.set('assembly')">Orders & Assembly</button>
-      <button [class.active]="activeMode() === 'products'" (click)="activeMode.set('products')">Product Manager</button>
+      <button [class.active]="activeMode() === 'products'" (click)="activeMode.set('products')">
+        Product Manager
+        @if (lowStockItems().length > 0) {
+          <span class="alert-badge">{{ lowStockItems().length }}</span>
+        }
+      </button>
       <button [class.active]="activeMode() === 'parts'" (click)="activeMode.set('parts')">LEGO Parts</button>
     </div>
   </div>
+
+  @if (lowStockItems().length > 0 && activeMode() !== 'products') {
+    <div class="stock-alert-banner">
+      ⚠️ <strong>Stock Alert:</strong> {{ lowStockItems().length }} products have low stock. 
+      <button (click)="activeMode.set('products')">View Inventory</button>
+    </div>
+  }
 
   @if (activeMode() === 'parts') {
     <div class="admin-tools">

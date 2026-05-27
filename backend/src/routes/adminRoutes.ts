@@ -12,6 +12,7 @@ router.get('/stats', AdminController.getPartStats);
 router.post('/products', uploadLegoPart.single('image'), AdminController.createProduct);
 router.put('/products/:id', uploadLegoPart.single('image'), AdminController.updateProduct);
 router.delete('/products/:id', AdminController.deleteProduct);
+router.get('/products/low-stock', AdminController.getLowStockProducts);
 
 export default router;
 迫
