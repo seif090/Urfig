@@ -1,0 +1,128 @@
+.admin-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.admin-header {
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 1rem;
+}
+
+.order-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+  border-left: 8px solid #ccc;
+  overflow: hidden;
+}
+
+/* Status colors */
+.order-card.pending { border-left-color: #ff9800; }
+.order-card.paid { border-left-color: #2196f3; }
+.order-card.shipped { border-left-color: #9c27b0; }
+.order-card.delivered { border-left-color: #4caf50; }
+.order-card.cancelled { border-left-color: #f44336; }
+
+.order-main-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background: #fcfcfc;
+  border-bottom: 1px solid #eee;
+}
+
+.customer {
+  display: flex;
+  flex-direction: column;
+}
+
+.customer strong { font-size: 1.2rem; }
+.customer small { color: #888; margin-top: 0.25rem; }
+
+.status-control select {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: white;
+}
+
+.total strong {
+  font-size: 1.3rem;
+  color: #333;
+}
+
+/* ASSEMBLY AREA */
+.assembly-area {
+  padding: 1.5rem;
+}
+
+.assembly-area h4 {
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #555;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.part-manifest {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: #f5f5f5;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.manifest-card {
+  background: white;
+  padding: 0.8rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 200px;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.manifest-card img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.manifest-card span {
+  font-size: 0.9rem;
+}
+
+.manifest-card.highlight {
+  border: 2px solid #ffcf00;
+  background: #fffdf0;
+}
+
+.engraving-card {
+  background: #e3f2fd;
+  border-color: #90caf9;
+  font-style: italic;
+}
+
+.ready-made-item {
+  padding: 1rem;
+  background: #eee;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.status-msg {
+  text-align: center;
+  padding: 4rem;
+  color: #888;
+}
+迫

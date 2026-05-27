@@ -27,5 +27,13 @@ export class OrderService {
   async getOrder(id: string) {
     return firstValueFrom(this.http.get<any>(`${this.API_URL}/${id}`));
   }
+
+  async getAllOrders() {
+    return firstValueFrom(this.http.get<any[]>(this.API_URL));
+  }
+
+  async updateStatus(id: string, status: string) {
+    return firstValueFrom(this.http.patch<any>(`${this.API_URL}/${id}/status`, { status }));
+  }
 }
 迫

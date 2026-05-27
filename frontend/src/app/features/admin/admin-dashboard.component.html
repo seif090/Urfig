@@ -1,0 +1,84 @@
+<div class="admin-container">
+  <div class="admin-header">
+    <h1>Assembly Control Panel</h1>
+    <p>Manage pending orders and view custom LEGO assembly instructions.</p>
+  </div>
+
+  @if (loading()) {
+    <div class="status-msg">Fetching orders...</div>
+  } @else {
+    <div class="orders-list">
+      @for (order of orders(); track order._id) {
+        <div class="order-card" [class]="order.status">
+          <div class="order-main-info">
+            <div class="customer">
+              <strong>#{{ order._id.slice(-6).toUpperCase() }}</strong>
+              <span>{{ order.customerName }}</span>
+              <small>{{ order.createdAt | date:'short' }}</small>
+            </div>
+            
+            <div class="status-control">
+              <select [value]="order.status" (change)="onStatusChange(order._id, $event)">
+                <option value="pending">Pending</option>
+                <option value="paid">Paid</option>
+                <option value="shipped">Shipped</option>
+                <option value="delivered">Delivered</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+
+            <div class="total">
+              <strong>${{ order.totalAmount }}</strong>
+            </div>
+          </div>
+
+          <!-- ASSEMBLY INSTRUCTIONS SECTION -->
+          <div class="assembly-area">
+            <h4><span class="icon">🧱</span> Assembly Instructions</h4>
+            <div class="items-grid">
+              @for (item of order.items; track $index) {
+                <div class="item-instruction">
+                  @if (item.customKeychain) {
+                    <div class="part-manifest">
+                      <div class="manifest-card">
+                        <img [src]="item.customKeychain.head.imageUrl" alt="Head">
+                        <span><strong>Head:</strong> {{ item.customKeychain.head.name }}</span>
+                      </div>
+                      <div class="manifest-card">
+                        <img [src]="item.customKeychain.torso.imageUrl" alt="Torso">
+                        <span><strong>Torso:</strong> {{ item.customKeychain.torso.name }}</span>
+                      </div>
+                      <div class="manifest-card">
+                        <img [src]="item.customKeychain.legs.imageUrl" alt="Legs">
+                        <span><strong>Legs:</strong> {{ item.customKeychain.legs.name }}</span>
+                      </div>
+                      @if (item.customKeychain.accessory) {
+                        <div class="manifest-card highlight">
+                          <img [src]="item.customKeychain.accessory.imageUrl" alt="Acc">
+                          <span><strong>Acc:</strong> {{ item.customKeychain.accessory.name }}</span>
+                        </div>
+                      }
+                      @if (item.customKeychain.customText) {
+                        <div class="manifest-card engraving-card">
+                          <span class="icon">🖋️</span>
+                          <span><strong>Engraving:</strong> "{{ item.customKeychain.customText }}"</span>
+                        </div>
+                      }
+                    </div>
+                  } @else {
+                    <div class="ready-made-item">
+                      <strong>Standard Product:</strong> {{ item.product?.name }} (x{{ item.quantity }})
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      } @empty {
+        <div class="status-msg">No orders found yet.</div>
+      }
+    </div>
+  }
+</div>
+迫

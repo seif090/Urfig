@@ -42,5 +42,25 @@ export class OrderController {
       res.status(500).json({ message: 'Error fetching order', error: error.message });
     }
   }
+
+  static async listOrders(req: Request, res: Response) {
+    try {
+      const orders = await OrderService.getAllOrders();
+      res.status(200).json(orders);
+    } catch (error: any) {
+      res.status(500).json({ message: 'Error listing orders', error: error.message });
+    }
+  }
+
+  static async updateStatus(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const { status } = req.body;
+      const order = await OrderService.updateOrderStatus(id, status);
+      res.status(200).json(order);
+    } catch (error: any) {
+      res.status(500).json({ message: 'Error updating order', error: error.message });
+    }
+  }
 }
 迫

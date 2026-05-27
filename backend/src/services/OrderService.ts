@@ -79,5 +79,19 @@ export class OrderService {
       .populate('items.customKeychain.accessory')
       .populate('items.product');
   }
+
+  static async getAllOrders() {
+    return await Order.find()
+      .sort({ createdAt: -1 })
+      .populate('items.customKeychain.head')
+      .populate('items.customKeychain.torso')
+      .populate('items.customKeychain.legs')
+      .populate('items.customKeychain.accessory')
+      .populate('items.product');
+  }
+
+  static async updateOrderStatus(orderId: string, status: string) {
+    return await Order.findByIdAndUpdate(orderId, { status }, { new: true });
+  }
 }
 迫
