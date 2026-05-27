@@ -1,4 +1,4 @@
-import { LegoPart, ILegoPart, LegoPartType } from '../models/LegoPart.js';
+import { LegoPart, ILegoPart, LegoPartType } from '../models/LegoPart';
 
 export class CustomizerService {
   /**
@@ -49,4 +49,4 @@ export class CustomizerService {
            foundTypes.has(LegoPartType.LEGS);
   }
 }
-迫
+

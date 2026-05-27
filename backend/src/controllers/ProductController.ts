@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { ProductService } from '../services/ProductService.js';
+import { ProductService } from '../services/ProductService';
 
 export class ProductController {
   static async listProducts(req: Request, res: Response) {
@@ -21,4 +21,4 @@ export class ProductController {
     }
   }
 }
-迫
+

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { PromoCode } from '../models/PromoCode.js';
+import { PromoCode } from '../models/PromoCode';
 
 export class PromoController {
   static async validateCode(req: Request, res: Response) {
@@ -41,3 +41,4 @@ export class PromoController {
     }
   }
 }
+

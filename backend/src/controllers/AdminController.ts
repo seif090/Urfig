@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { LegoPart } from '../models/LegoPart.js';
-import { Product } from '../models/Product.js';
+import { LegoPart } from '../models/LegoPart';
+import { Product } from '../models/Product';
 import fs from 'fs';
 import path from 'path';
 
@@ -121,4 +121,4 @@ export class AdminController {
     }
   }
 }
-迫
+

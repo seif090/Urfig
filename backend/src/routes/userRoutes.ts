@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { UserController } from '../controllers/UserController.js';
-import { authenticate } from '../middleware/authMiddleware.js';
+import { UserController } from '../controllers/UserController';
+import { authenticate } from '../middleware/authMiddleware';
 
 const router = Router();
 
@@ -10,4 +10,4 @@ router.post('/wishlist', authenticate, UserController.toggleWishlist);
 router.get('/wishlist', authenticate, UserController.getWishlist);
 
 export default router;
-迫
+

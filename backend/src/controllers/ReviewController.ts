@@ -1,6 +1,6 @@
 import { Response } from 'express';
-import { Review } from '../models/Review.js';
-import { AuthRequest } from '../middleware/authMiddleware.js';
+import { Review } from '../models/Review';
+import { AuthRequest } from '../middleware/authMiddleware';
 
 export class ReviewController {
   static async addReview(req: AuthRequest, res: Response) {
@@ -36,4 +36,4 @@ export class ReviewController {
     }
   }
 }
-迫
+

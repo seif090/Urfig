@@ -18,4 +18,3 @@ const ReviewSchema = new Schema<IReview>({
 }, { timestamps: true });
 
 export const Review = model<IReview>('Review', ReviewSchema);
-迫

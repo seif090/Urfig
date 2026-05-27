@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { OrderService } from '../services/OrderService.js';
-import { AuthRequest } from '../middleware/authMiddleware.js';
+import { OrderService } from '../services/OrderService';
+import { AuthRequest } from '../middleware/authMiddleware';
 
 export class OrderController {
   static async checkout(req: AuthRequest, res: Response) {
@@ -83,4 +83,4 @@ export class OrderController {
     }
   }
 }
-迫
+

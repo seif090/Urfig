@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { OrderController } from '../controllers/OrderController.js';
-import { authenticate, isAdmin } from '../middleware/authMiddleware.js';
+import { OrderController } from '../controllers/OrderController';
+import { authenticate, isAdmin } from '../middleware/authMiddleware';
 
 const router = Router();
 
@@ -35,4 +35,4 @@ router.get('/:id', OrderController.getOrderDetails);
 router.patch('/:id/status', OrderController.updateStatus);
 
 export default router;
-迫
+

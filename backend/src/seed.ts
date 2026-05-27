@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { LegoPart, LegoPartType } from './models/LegoPart.js';
+import { LegoPart, LegoPartType } from './models/LegoPart';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -57,3 +57,4 @@ const seedDB = async () => {
 };
 
 seedDB();
+

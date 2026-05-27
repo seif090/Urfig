@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { AdminController } from '../controllers/AdminController.js';
-import { uploadLegoPart } from '../middleware/uploadMiddleware.js';
+import { AdminController } from '../controllers/AdminController';
+import { uploadLegoPart } from '../middleware/uploadMiddleware';
 
 const router = Router();
 
@@ -15,4 +15,4 @@ router.delete('/products/:id', AdminController.deleteProduct);
 router.get('/products/low-stock', AdminController.getLowStockProducts);
 
 export default router;
-迫
+

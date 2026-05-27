@@ -3,14 +3,14 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import path from 'path';
-import customizerRoutes from './routes/customizerRoutes.js';
-import orderRoutes from './routes/orderRoutes.js';
-import productRoutes from './routes/productRoutes.js';
-import authRoutes from './routes/authRoutes.js';
-import adminRoutes from './routes/adminRoutes.js';
-import userRoutes from './routes/userRoutes.js';
-import reviewRoutes from './routes/reviewRoutes.js';
-import promoRoutes from './routes/promoRoutes.js';
+import customizerRoutes from './routes/customizerRoutes';
+import orderRoutes from './routes/orderRoutes';
+import productRoutes from './routes/productRoutes';
+import authRoutes from './routes/authRoutes';
+import adminRoutes from './routes/adminRoutes';
+import userRoutes from './routes/userRoutes';
+import reviewRoutes from './routes/reviewRoutes';
+import promoRoutes from './routes/promoRoutes';
 
 dotenv.config();
 

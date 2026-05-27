@@ -44,4 +44,3 @@ UserSchema.methods.comparePassword = async function(password: string): Promise<b
 };
 
 export const User = model<IUser>('User', UserSchema);
-迫

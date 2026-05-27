@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { User, IUser } from '../models/User.js';
+import { User, IUser } from '../models/User';
 
 export class AuthService {
   private static readonly JWT_SECRET = process.env.JWT_SECRET || 'super-secret-key-urfig';
@@ -43,4 +43,4 @@ export class AuthService {
     };
   }
 }
-迫
+

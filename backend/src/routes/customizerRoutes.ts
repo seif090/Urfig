@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { CustomizerController } from '../controllers/CustomizerController.js';
+import { CustomizerController } from '../controllers/CustomizerController';
 
 const router = Router();
 
@@ -16,4 +16,3 @@ router.get('/parts', CustomizerController.getAvailableParts);
 router.post('/calculate-price', CustomizerController.getPrice);
 
 export default router;
-迫

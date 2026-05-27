@@ -1,6 +1,6 @@
 import { Response } from 'express';
-import { User } from '../models/User.js';
-import { AuthRequest } from '../middleware/authMiddleware.js';
+import { User } from '../models/User';
+import { AuthRequest } from '../middleware/authMiddleware';
 
 export class UserController {
   static async saveDesign(req: AuthRequest, res: Response) {
@@ -80,3 +80,4 @@ export class UserController {
     }
   }
 }
+

@@ -21,4 +21,3 @@ const ProductSchema = new Schema<IProduct>({
 }, { timestamps: true });
 
 export const Product = model<IProduct>('Product', ProductSchema);
-迫

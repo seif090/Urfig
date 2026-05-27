@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { CustomizerService } from '../services/CustomizerService.js';
+import { CustomizerService } from '../services/CustomizerService';
 
 export class CustomizerController {
   static async getAvailableParts(req: Request, res: Response) {
@@ -25,4 +25,4 @@ export class CustomizerController {
     }
   }
 }
-迫
+

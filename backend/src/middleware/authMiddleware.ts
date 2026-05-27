@@ -32,4 +32,3 @@ export const isAdmin = (req: AuthRequest, res: Response, next: NextFunction) => 
   }
   next();
 };
-迫

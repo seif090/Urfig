@@ -1,7 +1,7 @@
-import { Order, IOrder, IOrderItem } from '../models/Order.js';
-import { CustomizerService } from './CustomizerService.js';
-import { Product } from '../models/Product.js';
-import { PromoCode } from '../models/PromoCode.js';
+import { Order, IOrder, IOrderItem } from '../models/Order';
+import { CustomizerService } from './CustomizerService';
+import { Product } from '../models/Product';
+import { PromoCode } from '../models/PromoCode';
 
 export class OrderService {
   /**
@@ -130,4 +130,4 @@ export class OrderService {
       .populate('items.product');
   }
 }
-迫
+

@@ -1,4 +1,4 @@
-import { Product, IProduct } from '../models/Product.js';
+import { Product, IProduct } from '../models/Product';
 
 export class ProductService {
   /**
@@ -22,4 +22,4 @@ export class ProductService {
     return await Product.distinct('category', { isReadyMade: true });
   }
 }
-迫
+

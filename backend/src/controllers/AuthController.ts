@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { AuthService } from '../services/AuthService.js';
+import { AuthService } from '../services/AuthService';
 
 export class AuthController {
   static async register(req: Request, res: Response) {
@@ -26,4 +26,4 @@ export class AuthController {
     res.status(200).json((req as any).user);
   }
 }
-迫
+

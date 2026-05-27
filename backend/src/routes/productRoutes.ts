@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { ProductController } from '../controllers/ProductController.js';
+import { ProductController } from '../controllers/ProductController';
 
 const router = Router();
 
@@ -16,4 +16,4 @@ router.get('/', ProductController.listProducts);
 router.get('/categories', ProductController.getCategories);
 
 export default router;
-迫
+
