@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const UserController_1 = require("../controllers/UserController");
+const authMiddleware_1 = require("../middleware/authMiddleware");
+const router = (0, express_1.Router)();
+router.post('/saved-designs', authMiddleware_1.authenticate, UserController_1.UserController.saveDesign);
+router.get('/saved-designs', authMiddleware_1.authenticate, UserController_1.UserController.getSavedDesigns);
+router.post('/wishlist', authMiddleware_1.authenticate, UserController_1.UserController.toggleWishlist);
+router.get('/wishlist', authMiddleware_1.authenticate, UserController_1.UserController.getWishlist);
+exports.default = router;

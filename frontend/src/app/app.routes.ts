@@ -17,4 +17,3 @@ export const routes: Routes = [
   { path: 'admin', component: AdminDashboardComponent },
   { path: '**', redirectTo: '' }
 ];
-迫

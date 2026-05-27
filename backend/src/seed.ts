@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { LegoPart, LegoPartType } from './models/LegoPart';
+import { Product } from './models/Product';
 import dotenv from 'dotenv';
 
 dotenv.config();
